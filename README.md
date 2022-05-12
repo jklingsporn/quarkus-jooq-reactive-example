@@ -1,14 +1,16 @@
-# A short example with Quarkus, jOOQ and vertx-jooq
+# How to go reactive with Quarkus and jOOQ
 ## Why
-At the time of writing, there is currently no way to leverage the power of jOOQ together with Quarkus' reactive API.
+At the time of writing, there is currently no way to leverage the power of [jOOQ](https://www.jooq.org) together with Quarkus' reactive API.
 The [existing extension](https://github.com/quarkiverse/quarkus-jooq) enables vanilla jOOQ for Quarkus with it's blocking
 API.
 
 ## How
-In order to enable dependency injection capabilities one must render the proper annotations to the generated jOOQ files.
+[vertx-jooq](https://github.com/jklingsporn/vertx-jooq) unlocks reactive APIs for jOOQ by using vertx' reactive database
+drivers. It supports several API-variants including Smallrye Mutiny-API which is also used by Quarkus. 
+Quarkus however uses its own dependency injection framework. To support it, one must render the proper annotations in the generated jOOQ files.
 [vertx-jooq](https://github.com/jklingsporn/vertx-jooq) provides out-of-the-box support for GuiceDI. With a little adjustment
 to the [code-generator](https://github.com/jklingsporn/quarkus-jooq-reactive-example/blob/main/codegen/src/main/java/io/github/jklingsporn/qjre/QuarkusReactiveGenerator.java) 
-we can render `@Inject`-annotations and omit the creation of Guice-Modules:
+we can render `@Inject`-annotations and omit the creation of Guice-Modules which are rendered by default:
 ```
 public class QuarkusReactiveGenerator extends DelegatingVertxGenerator {
 
@@ -18,7 +20,7 @@ public class QuarkusReactiveGenerator extends DelegatingVertxGenerator {
 }
 ```
 After we've built the generator, we can use it to generate our files. However - similar to Guice - QuarkusDI needs to know
-how to create the `org.jooq.Configuration`, `QueryExecutor` and the reactive `SqlClient`. For those classes we need
+how to create the `org.jooq.Configuration`, `SqlClient`, etc. For those classes we need
 to give QuarkusDI a hint how these classes are created. Take a look at this example for the `Configuration`-object:
 ```
 public class ConfigurationFactory {
