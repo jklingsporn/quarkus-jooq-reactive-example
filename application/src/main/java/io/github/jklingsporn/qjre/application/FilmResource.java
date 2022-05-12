@@ -36,7 +36,7 @@ public class FilmResource {
     @GET
     @Path("/{id:\\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<Film> getFilmsById(Integer id) {
+    public Uni<Film> getFilmById(Integer id) {
         return filmDao.findOneById(id.shortValue());
     }
 }
