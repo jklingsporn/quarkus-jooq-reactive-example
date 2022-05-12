@@ -7,7 +7,7 @@ API.
 ## How
 In order to enable dependency injection capabilities one must render the proper annotations to the generated jOOQ files.
 [vertx-jooq](https://github.com/jklingsporn/vertx-jooq) provides out-of-the-box support for GuiceDI. With a little adjustment
-to the [code-generator](https://github.com/jklingsporn/quarkus-jooq-reactive-example/tree/master/codegen/src/main/java/io/github/jklingsporn/qjre/QuarkusReactiveGenerator) 
+to the [code-generator](https://github.com/jklingsporn/quarkus-jooq-reactive-example/blob/main/codegen/src/main/java/io/github/jklingsporn/qjre/QuarkusReactiveGenerator.java) 
 we can render `@Inject`-annotations and omit the creation of Guice-Modules:
 ```
 public class QuarkusReactiveGenerator extends DelegatingVertxGenerator {
