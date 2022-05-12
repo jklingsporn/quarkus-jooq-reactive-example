@@ -62,5 +62,7 @@ Step 5: start dev-server
 ```
 Step 6: open browser 
 ```
-http://localhost:8080/film?limit=10&offset=0
+Film by id: http://localhost:8080/film/2
+
+List films: http://localhost:8080/film?limit=10&offset=0
 ```
